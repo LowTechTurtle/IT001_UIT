@@ -8,7 +8,12 @@ int _2pow19 = 1 << 19;
 
 void output(int k)
 {
-	cout << "out" << endl;
+	for (int i = 0; i < s.length(); i++) {
+		int p = cons.find(s[i]);
+		if (((k >> p) & 1) == 1)
+			s[i] = toupper(s[i]);
+	}
+	cout << s << endl;
 }
 
 int main()
