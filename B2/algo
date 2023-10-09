@@ -1,0 +1,13 @@
+algoritm _subset(array A, array answer, array temporary, int index):
+	add temporary array to answer // answer is a array that contain other array
+	for i = index to length(A) (exclusively):
+		add A[i] to temporary
+		
+		//recursive call
+		_subset(A, answer, temporary, i + 1)
+		
+		remove A[i] from temporary
+	
+	end for
+
+//call function _subset from index = 0 to find subset of the array

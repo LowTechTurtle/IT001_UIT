@@ -1,0 +1,22 @@
+//in this pseudocode, array answer is an array that contain another array(2 dimensions array)
+//first array answer is an array consist of 1 empty array
+
+algorithm helper_subset(array A, array answer, array temporary)
+	for i = 0 to length(A) (exclusive):
+		copy answer to temporary;
+		for j = 0 to length(answer) (exclusive)
+			add A[i] to answer[j]
+		end for
+		append temporary to answer
+		//with each step, we double the size of the array answer
+	endfor
+
+	//after length(A) step (i iterate from 0 to length(A) - 1) 
+	//the size of array answer went from 1 to 2 power of A (2**A)
+	//which is the numbers of subset of an array of size length(A)
+	//and so the math checked out!
+
+algorithm subset(array A)
+	declare and initialize array answer and temporary
+	helper_subset(A, answer, temporary)
+	return answer

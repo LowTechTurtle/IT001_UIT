@@ -1,0 +1,1 @@
+CPPFLAGS = -Wall -g -D_GLIBCXX_DEBUG
