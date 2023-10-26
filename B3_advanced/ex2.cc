@@ -1,62 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int get_distance(int x, int y) 
-{
-	int res = 0;
-	if (x < 0 && y < 0) {
-		while (x < 0 && y < 0) {
-			x += 1;
-			y += 1;
-			res += 1;
-		}
-		if (x == 0) {
-			res += abs(y);
-		}
-		else if (y == 0) {
-			res += abs(x);
-		}
-	} else if (x < 0 && y > 0) {
-		while (x < 0 && y > 0) {
-			x += 1;
-			y -= 1;
-			res += 1;
-		}
-		if (x == 0) {
-			res += abs(y);
-		}
-		else if (y == 0) {
-			res += abs(x);
-		}
-	} else if (x > 0 && y < 0) {
-		while (x > 0 && y < 0) {
-			x -= 1;
-			y += 1;
-			res += 1;
-		}
-		if (x == 0) {
-			res += abs(y);
-		}
-		else if (y == 0) {
-			res += abs(x);
-		}
-	} else if (x > 0 && y > 0) {
-		while (x > 0 && y > 0) {
-			x -= 1;
-			y -= 1;
-			res += 1;
-		}
-		if (x == 0) {
-			res += abs(y);
-		}
-		else if (y == 0) {
-			res += abs(x);
-		}
-	}
-
-	return res;
-}
-
 int main()
 {
 	int n;
@@ -67,11 +11,23 @@ int main()
 	for (int i = 0; i < n; i++) {
 		cin >> x;
 		cin >> y;
-		temp = get_distance(x, y);
+		temp = max(abs(x), abs(y));
 		m[temp].push_back(i+1);
 	}
 	
+	int sec = 0;
 	map<int, vector<int>>::iterator it = m.begin();
+
+	while (it != m.end()) {
+		if (it -> first - sec < (it -> second).size()) {
+			cout << -1;
+			return 0;
+		}
+		sec += (it -> second).size();
+		it++;
+	}
+
+	it = m.begin();
 	while (it != m.end()) {
 		for (auto x: it -> second) {
 			cout << x << " ";

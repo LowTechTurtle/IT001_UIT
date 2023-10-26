@@ -3,7 +3,7 @@ using namespace std;
 
 string s_in, word;
 int n, m, wordlen = 1;
-char table[6][6];
+vector<vector <char>> table(10, vector<char>(10, 'a'));
 
 void text2table()
 {
@@ -24,37 +24,55 @@ void text2table()
 int dc[4] = {-1, 0, 1, 0};
 int dr[4] = {0, -1, 0, 1};
 
-bool search(int i, int r, int c) 
-{
-	if (i >= wordlen)
-		return true;
-	if ((c < 0) || (c >= n) || (r < 0) || (r >= m) || word[i] != table[r][c])
-		return false;
+bool dfs(vector<vector<char>>& board, string word,
+        int index, int i, int j, int m, int n) {
+        
+        if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] != word[index]) {
+            return false;
+        }
+        if (index == word.size() - 1) {
+            return true;
+        }
+        
+        board[i][j] = '#';
+        
+        if (dfs(board, word, index + 1, i - 1, j, m, n)
+            || dfs(board, word, index + 1, i + 1, j, m, n)
+            || dfs(board, word, index + 1, i, j - 1, m, n)
+            || dfs(board, word, index + 1, i, j + 1, m, n)) {
+            return true;
+        }
+        
+        board[i][j] = word[index];
+        return false;
+    }
 
-	table[r][c] = '0';
-	for (int d = 0; d < 4; d++) {
-		if (search(i + 1, r + dr[d], c + dc[d]))
-			return true;
-	}
-	table[r][c] = word[i];
-	return false;
-}
 
+bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == word[0]) {
+                    if (dfs(board, word, 0, i, j, m, n)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
 int main()
 {
 	getline(cin, s_in);
 	cin >> word;
 	text2table();
-	wordlen = word.length();
-	for (int i = 0; i < m; i++) {
-		for (int j = 0; j < n; j++) {
-			if (search(0, i, j)) {
-				cout << "true\n";
-				return 0;
-			}
-		}
-	}
-	cout << "false\n" << endl;
-
+	if (exist(table, word))
+	    cout << "true" << endl;
+	else
+	    cout << "false" << endl;
 	return 0;
 }
