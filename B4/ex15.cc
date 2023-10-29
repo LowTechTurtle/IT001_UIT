@@ -4,24 +4,32 @@ using namespace std;
 int main()
 {
 #define int long long int
-	int n;
+	string n;
 	cin >> n;
-	int arr[13] = {0};
-	int i = 0;
-	int _count = 0;
-	while (n > 0) {
-		arr[i] = n % 10;
-		n /= 10;
-		_count += 1;
-		i += 1;
+	int n_i = stoll(n);
+	int len = n.length();
+	int result;
+	if (len >= 2) {
+		result = ((n_i-pow(10, len - 1))/10 + 1);
+		result *= len;
+		result += (n_i > 1) ? 1 : 0;
+	} else {
+		result = 1;
 	}
 
-	int x = 1;
-	for (int j = 0; j < _count; j ++) {
-		if (j == 0)
-			continue;
-		x += arr[j]*pow(10, j-1)*(j+1);
+	if (n_i == 1) {
+		cout << result << endl;
+		return 0;
 	}
-	cout << x+_count << endl;
+
+	int sum = 0;
+	for (int i = 2; i < len; i++) {
+		sum += 9*pow(10, i -2)*i;
+	}
+	if (n_i % 10 == 0) {
+		cout << result + sum << endl;
+	} else {
+		cout << result + sum + len << endl;
+	}
 	return 0;
 }
