@@ -1,43 +1,38 @@
-#include<iostream>
 #include <bits/stdc++.h>
-
 using namespace std;
 
-int main() {
-	int n;
-	scanf("%d", &n);
-	int arr[n];
-	int i = 0;
-	for (i = 0; i < n; i++) {
-		scanf("%d", &arr[i]);
-	}
+int main(void)
+{
+    int n;
+    cin>>n;
+    vector<int> h;
+    vector<int>gcd1(n),gcd2(n);
+    for (int i =0;i<n;i++)
+    {
+        int hi;
+        cin>>hi;
+        h.push_back(hi);
+    }
 
-	int GCD1[n+1];
-	int GCD2[n+1];
-	GCD1[0] = arr[0];
-	for (i = 1; i < n; i++) {
-		printf("%d %d \n", GCD1[i-1], arr[i]);
-		GCD1[i] = gcd(GCD1[i - 1], arr[i]);
-		printf("GCD1 %d\n", GCD1[i]);
-	}
-	
-	GCD2[n] = 0;
-	GCD2[n - 1] = arr[n-1];
-	for (i = n - 2; i >= 0; i--) {
-		printf("%d %d \n", GCD2[i+1], arr[i]);
-		GCD2[i] = gcd(GCD2[i + 1], arr[i]);
-		printf("GCD2 %d\n", GCD2[i]);
-	}
-	int max = 1;
-	int temp;
-	int pos = 0;
-	for (i = 0; i < n; i++) {
-		temp = gcd(GCD1[i], GCD2[i]);
-		if (temp > max) {
-			pos = i + 1;
-			max = temp;
-		}
-	}
-	cout << pos << " " << max;
-	return 0;
+    gcd1[0] = h[0];
+    for(int i=1; i<n; ++i)
+        gcd1[i] = __gcd(gcd1[i-1], h[i]);
+
+    gcd2[n-1] = h[n-1];
+    for(int i=n-2; i>=0; --i)
+        gcd2[i] = __gcd(gcd2[i+1], h[i]);
+
+    int ans = 0, x = 0;
+
+    for(int i=0; i<n; ++i){
+        int g1 = 0;
+        if (i > 0) g1 = gcd1[i-1];
+        int g2 = 0;
+        if (i < n-1) g2 = gcd2[i+1];
+        int allGCD = __gcd(g1, g2);
+        if (allGCD > ans) ans = allGCD, x = i+1;
+    }
+
+    cout << x << ' ' << ans;
+    return 0;
 }
