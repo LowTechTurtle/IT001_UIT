@@ -13,6 +13,7 @@ int main()
 		result = ((n_i-pow(10, len - 1))/10 + 1);
 		result *= len;
 		result += (n_i > 1) ? 1 : 0;
+		cout << result << endl;
 	} else {
 		result = 1;
 	}

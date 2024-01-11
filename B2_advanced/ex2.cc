@@ -1,8 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int board[9][9];
-int mark[5][5];
+int board[9][9] = {{}};
+int mark[81][81] = {{}};
 int _count = 0;
 void input()
 {
@@ -72,10 +72,11 @@ bool solve(int prob)
 	for (int i = 1; i <= 9; i++) {
 		board[mark[prob][0]][mark[prob][1]] = i;
 		if (pos_ok(mark[prob][0], mark[prob][1])) {
-			if (solve(prob + 1))
+			if (solve(prob + 1)) {
 				return true;
+			}
 		} else {
-			board[mark[prob][0]][mark[prob][1]] = 'X';
+			board[mark[prob][0]][mark[prob][1]] = 0;
 		}
 	}
 

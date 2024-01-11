@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-string cons = "bcdfghjklmnpqrstvxz";
+//string cons = "bcdfghjklmnpqrstvxz";
+string cons = "qrtpsdfghjklzxcvbnm";
 string s;
 int f[19][19] = {0};
 int _2pow19 = 1 << 19;
